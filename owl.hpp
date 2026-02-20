@@ -37,14 +37,14 @@ class Logger
         enabled = enable;
     }
 
-    void set_max_level(Level level)
+    void set_min_level(Level level)
     {
-        max_level = level;
+        min_level = level;
     }
 
     void log(Level level, const std::string &message)
     {
-        if (!enabled || level < max_level)
+        if (!enabled || level < min_level)
         {
             return;
         }
@@ -63,7 +63,7 @@ class Logger
     }
 
   private:
-    Logger() : enabled(true), max_level(Level::INFO) {};
+    Logger() : enabled(true), min_level(Level::INFO) {};
 
     ~Logger()
     {
@@ -74,7 +74,7 @@ class Logger
     }
 
     bool enabled;
-    Level max_level;
+    Level min_level;
     std::ofstream file;
     std::mutex mtx;
 
