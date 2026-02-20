@@ -17,7 +17,7 @@ int main() {
     OWL_WARN("This is a warning ...");
     OWL_CRITICAL("THIS IS A CRITICAL MESSAGE !!!");
 
-    // 3. Need silence?
+    // Silence all logs
     owl::Logger::get().set_enabled(false);
     OWL_ERROR("This won't be logged.");
 
