@@ -1,6 +1,6 @@
 # 🦉 owl
 
-### A very lightweight, header-only C++ logging library
+### A lightweight, header-only C++ logging library
 
 ### Usage
 Just include `owl.hpp` in your projects and start logging!
