@@ -9,8 +9,11 @@ Just include `owl.hpp` in your projects and start logging!
 #include "owl.hpp"
 
 int main() {
+
+    owl::Logger& logger = owl::Logger::get();
+
     // Set the minimum level you want to log
-    owl::Logger::get().set_min_level(owl::Level::INFO);
+    logger.set_min_level(owl::Level::INFO);
 
     // Start logging
     OWL_INFO("This is just info");
@@ -18,7 +21,7 @@ int main() {
     OWL_CRITICAL("THIS IS A CRITICAL MESSAGE !!!");
 
     // Silence all logs
-    owl::Logger::get().set_enabled(false);
+    logger.set_enabled(false);
     OWL_ERROR("This won't be logged.");
 
     return 0;
