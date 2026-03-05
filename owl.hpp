@@ -52,12 +52,13 @@ class Logger
         std::lock_guard<std::mutex> lock(mtx);
         if (!file.is_open())
         {
-            file.open("owl.log", std::ios::app);
+            std::string filename = "owl_" + get_file_time() + ".log";
+            file.open(filename, std::ios::app);
         }
 
         if (file)
         {
-            file << "[" << get_timestamp() << "] "
+            file << "[" << get_log_timestamp() << "] "
                  << "[" << to_string(level) << "] " << message << std::endl;
         }
     }
@@ -78,7 +79,7 @@ class Logger
     std::ofstream file;
     std::mutex mtx;
 
-    std::string get_timestamp()
+    std::string get_log_timestamp()
     {
         auto now = std::chrono::system_clock::now();
         auto in_time_t = std::chrono::system_clock::to_time_t(now);
@@ -92,6 +93,23 @@ class Logger
 
         std::stringstream ss;
         ss << std::put_time(&time, "%Y-%m-%d %X");
+        return ss.str();
+    }
+
+    std::string get_file_time()
+    {
+        auto now = std::chrono::system_clock::now();
+        auto in_time_t = std::chrono::system_clock::to_time_t(now);
+        std::tm time{};
+
+#if defined(_MSC_VER)
+        localtime_s(&time, &in_time_t);
+#else
+        localtime_r(&in_time_t, &time);
+#endif
+
+        std::stringstream ss;
+        ss << std::put_time(&time, "%Y%m%d");
         return ss.str();
     }
 
